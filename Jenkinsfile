@@ -16,12 +16,16 @@ pipeline {
             }
             stages {
                 stage("Maven Build") {
-                    sh "git clone -b ${params.BRANCH} --depth 1 https://github.com/Imasug/${params.DOMAIN}.git"
-                    // TODO
-                    sh "cd ${params.DOMAIN} && sh build.sh"
+                    steps {
+                        sh "git clone -b ${params.BRANCH} --depth 1 https://github.com/Imasug/${params.DOMAIN}.git"
+                        // TODO
+                        sh "cd ${params.DOMAIN} && sh build.sh"
+                    }
                 }
                 stage("Docker Build") {
-                    sh "podman build -t ${params.DOMAIN}:latest ./${params.DOMAIN}"
+                    steps {
+                        sh "podman build -t ${params.DOMAIN}:latest ./${params.DOMAIN}"
+                    }
                 }
                 stage("Docker Push") {
                 }
