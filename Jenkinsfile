@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image "registry.access.redhat.com/openshift3/jenkins-slave-maven-rhel7"
-        }
-    }
+    agent any
     stages {
         stage("build") {
             steps {
