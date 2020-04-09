@@ -8,26 +8,26 @@ pipeline {
     }
 
     stages {
-        stage("Maven Build") {
-            steps {
-                sh "mvn --version"
-                // TODO
-                sh "rm -rf ${params.DOMAIN}"
-                sh "git clone -b ${params.BRANCH} --depth 1 https://github.com/Imasug/${params.DOMAIN}.git"
-                sh "cd ${params.DOMAIN} && sh build.sh"
-            }
-        }
-        stage("Docker Build") {
-            steps {
-                sh "docker build -t ${params.DOMAIN}:latest ./${params.DOMAIN}"
-            }
-        }
-        stage("Docker push") {
-            steps {
-                // TODO
-                sh "echo docker push"
-            }
-        }
+        // stage("Maven Build") {
+        //     steps {
+        //         sh "mvn --version"
+        //         // TODO
+        //         sh "rm -rf ${params.DOMAIN}"
+        //         sh "git clone -b ${params.BRANCH} --depth 1 https://github.com/Imasug/${params.DOMAIN}.git"
+        //         sh "cd ${params.DOMAIN} && sh build.sh"
+        //     }
+        // }
+        // stage("Docker Build") {
+        //     steps {
+        //         sh "docker build -t ${params.DOMAIN}:latest ./${params.DOMAIN}"
+        //     }
+        // }
+        // stage("Docker push") {
+        //     steps {
+        //         // TODO
+        //         sh "echo docker push"
+        //     }
+        // }
         stage("test") {
             agent {
                 docker {
