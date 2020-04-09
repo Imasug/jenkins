@@ -10,6 +10,9 @@ pipeline {
                         stage('Maven Build') {
                             sh 'cd /tmp && git clone https://github.com/Imasug/multi-wars.git && cd ./multi-wars && sh build.sh'
                         }
+                        stage('Docker Build') {
+                            sh 'podman build -t multi-wars:latest /tmp/multi-wars'
+                        }
                     }
                 }
             }
