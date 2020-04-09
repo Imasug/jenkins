@@ -5,7 +5,8 @@ pipeline {
             steps {
                 sh "mvn --version"
                 sh "git clone --depth 1 https://github.com/Imasug/multi-wars.git"
-                sh "ls"
+                sh "cd multi-wars"
+                sh "sh build.sh"
             }
         }
     }
