@@ -32,6 +32,7 @@ pipeline {
             agent {
                 docker {
                     image "jenkins-slave"
+                    args "-v $HOME/.m2:/root/.m2"
                 }
             }
             steps {
