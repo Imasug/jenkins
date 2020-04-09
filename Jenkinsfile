@@ -30,7 +30,9 @@ pipeline {
         }
         stage("test") {
             agent {
-                docker "jenkins-slave"
+                docker {
+                    image "jenkins-slave"
+                }
             }
             steps {
                 sh "git --version"
