@@ -1,5 +1,7 @@
 pipeline {
 
+    agent none
+
     parameters {
         string(name: 'DOMAIN', defaultValue: 'multi-wars', description: 'Which domain?')
         string(name: 'BRANCH', defaultValue: 'develop', description: 'Which branch?')
