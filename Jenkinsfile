@@ -3,8 +3,8 @@ pipeline {
     agent any
 
     parameters {
-        string(name: "BRANCH", defaultValue: "develop", description: "Which branch?")
         string(name: "DOMAIN", defaultValue: "multi-wars", description: "Which domain?")
+        string(name: "BRANCH", defaultValue: "develop", description: "Which branch?")
     }
 
     stages {
