@@ -36,7 +36,9 @@ pipeline {
             }
             steps {
                 sh "git --version"
+                sh "java -version"
                 sh "mvn --version"
+                sh "podman -v"
             }
         }
     }
