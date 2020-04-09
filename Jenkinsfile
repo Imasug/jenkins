@@ -4,6 +4,7 @@ pipeline {
 
     parameters {
         string(name: "BRANCH", defaultValue: "develop", description: "Which branch?")
+        string(name: "DOMAIN", defaultValue: "multi-wars", description: "Which domain?")
     }
 
     stages {
@@ -11,14 +12,14 @@ pipeline {
             steps {
                 sh "mvn --version"
                 // TODO
-                sh "rm -rf multi-wars"
-                sh "git clone -b ${params.BRANCH} --depth 1 https://github.com/Imasug/multi-wars.git"
-                sh "cd multi-wars && sh build.sh"
+                sh "rm -rf ${params.DOMAIN}"
+                sh "git clone -b ${params.BRANCH} --depth 1 https://github.com/Imasug/${params.DOMAIN}.git"
+                sh "cd ${params.DOMAIN} && sh build.sh"
             }
         }
         stage("Docker Build") {
             steps {
-                sh "docker build -t multi-wars:latest ./multi-wars"
+                sh "docker build -t ${params.DOMAIN}:latest ./${params.DOMAIN}"
             }
         }
         stage("Docker push") {
