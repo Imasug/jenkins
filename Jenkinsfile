@@ -30,7 +30,7 @@ pipeline {
                 stage('Docker Push') {
                     steps {
                         // TODO
-                        sh 'echo "Docker Push"
+                        sh 'echo "Docker Push"'
                     }
                 }
             }
