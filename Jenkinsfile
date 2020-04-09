@@ -1,5 +1,5 @@
 node {
-    docker.image('jenkins-slave').withRun() { c ->
-        sh "whoami"
+    docker.image('jenkins-slave').inside {
+        sh "podman -v"
     }
 }
