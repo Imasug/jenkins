@@ -28,5 +28,14 @@ pipeline {
                 sh "echo docker push"
             }
         }
+        stage("test") {
+            agent {
+                docker "jenkins-slave"
+            }
+            steps {
+                sh "git --version"
+                sh "mvn --version"
+            }
+        }
     }
 }
