@@ -2,7 +2,7 @@ pipeline {
     // TODO agent to container
     agent any
     stages {
-        stage("mvn build") {
+        stage("Maven Build") {
             steps {
                 sh "mvn --version"
                 // TODO
@@ -11,7 +11,7 @@ pipeline {
                 sh "cd multi-wars && sh build.sh"
             }
         }
-        stage("docker build") {
+        stage("Docker Build") {
             steps {
                 sh "docker build -t multi-wars:latest ./multi-wars"
             }
