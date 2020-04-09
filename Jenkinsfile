@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image "maven"
+            image "registry.access.redhat.com/openshift3/jenkins-slave-maven-rhel7"
         }
     }
     stages {
