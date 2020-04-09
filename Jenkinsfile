@@ -3,11 +3,21 @@ pipeline {
     agent none
 
     stages {
-        stage('Maven Build') {
+        stage('Build') {
             steps {
                 script {
-                    docker.image('jenkins-slave').inside {
-                        sh 'cd /tmp; git clone https://github.com/Imasug/multi-wars.git'
+                    docker.image('jenkins-slave').inside("-w /tmp") {
+                        stage('Maven Build') {
+                            sh 'git clone https://github.com/Imasug/multi-wars.git'
+                            sh 'cd ./multi-wars'
+                            sh 'sh build.sh'
+                        }
+                        stage('Docker Build') {
+                            sh 'echo 1'
+                        }
+                        stage('Docker Push') {
+                            sh 'echo 2'
+                        }
                     }
                 }
             }
