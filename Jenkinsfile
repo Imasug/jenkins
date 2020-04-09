@@ -13,22 +13,9 @@ pipeline {
     }
 
     stages {
-        stage('Maven Build') {
+        stage('test') {
             steps {
-                sh "git clone -b ${params.BRANCH} --depth 1 https://github.com/Imasug/${params.DOMAIN}.git"
-                // TODO
-                sh "cd ${params.DOMAIN} && sh build.sh"
-            }
-        }
-        stage('Docker Build') {
-            steps {
-                sh "podman build -t ${params.DOMAIN}:latest ./${params.DOMAIN}"
-            }
-        }
-        stage('Docker Push') {
-            steps {
-                // TODO
-                sh 'echo "Docker Push"'
+                sh "mvn --version"
             }
         }
     }
