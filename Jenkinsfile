@@ -16,6 +16,7 @@ pipeline {
         stage('test') {
             steps {
                 sh "mvn --version"
+                sh "podman -v"
             }
         }
     }
