@@ -4,7 +4,7 @@ pipeline {
         stage("build") {
             steps {
                 sh "mvn --version"
-                sh "rm -rf multiwars"
+                sh "rm -rf multi-wars"
                 sh "git clone --depth 1 https://github.com/Imasug/multi-wars.git"
                 sh "cd multi-wars && sh build.sh"
             }
