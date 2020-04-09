@@ -15,7 +15,10 @@ pipeline {
     stages {
         stage('test') {
             steps {
+                sh "ls"
+                sh "git clone https://github.com/Imasug/multi-wars.git"
                 sh "mvn --version"
+                sh "git --version"
                 sh "podman -v"
             }
         }
