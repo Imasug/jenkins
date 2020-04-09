@@ -12,8 +12,7 @@ pipeline {
                 sh "mvn --version"
                 // TODO
                 sh "rm -rf multi-wars"
-                sh "git clone --depth 1 https://github.com/Imasug/multi-wars.git"
-                sh "git checkout ${params.BRANCH}"
+                sh "git clone -b ${params.BRANCH} --depth 1 https://github.com/Imasug/multi-wars.git"
                 sh "cd multi-wars && sh build.sh"
             }
         }
