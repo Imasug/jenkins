@@ -12,7 +12,7 @@ pipeline {
             }
         }
         stage("docker build") {
-            staps {
+            steps {
                 sh "docker build multi-wars:latest ./multi-wars"
             }
         }
