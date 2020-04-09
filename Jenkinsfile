@@ -1,6 +1,5 @@
 pipeline {
-    // TODO agent to container
-    agent any
+    agent none
 
     parameters {
         string(name: "DOMAIN", defaultValue: "multi-wars", description: "Which domain?")
@@ -8,38 +7,24 @@ pipeline {
     }
 
     stages {
-        // stage("Maven Build") {
-        //     steps {
-        //         sh "mvn --version"
-        //         // TODO
-        //         sh "rm -rf ${params.DOMAIN}"
-        //         sh "git clone -b ${params.BRANCH} --depth 1 https://github.com/Imasug/${params.DOMAIN}.git"
-        //         sh "cd ${params.DOMAIN} && sh build.sh"
-        //     }
-        // }
-        // stage("Docker Build") {
-        //     steps {
-        //         sh "docker build -t ${params.DOMAIN}:latest ./${params.DOMAIN}"
-        //     }
-        // }
-        // stage("Docker push") {
-        //     steps {
-        //         // TODO
-        //         sh "echo docker push"
-        //     }
-        // }
-        stage("test") {
+        stage("Slave") {
             agent {
                 docker {
                     image "jenkins-slave"
                     args "-v $HOME/.m2:/root/.m2"
                 }
             }
-            steps {
-                sh "git --version"
-                sh "java -version"
-                sh "mvn --version"
-                sh "podman -v"
+            stages {
+                stage("Maven Build") {
+                    sh "git clone -b ${params.BRANCH} --depth 1 https://github.com/Imasug/${params.DOMAIN}.git"
+                    // TODO
+                    sh "cd ${params.DOMAIN} && sh build.sh"
+                }
+                stage("Docker Build") {
+                    sh "podman build -t ${params.DOMAIN}:latest ./${params.DOMAIN}"
+                }
+                stage("Docker Push") {
+                }
             }
         }
     }
