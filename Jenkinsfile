@@ -1,12 +1,5 @@
 pipeline {
 
-    agent {
-        docker {
-            image 'jenkins-slave'
-            args '-v $HOME/.m2:/root/.m2'
-        }
-    }
-
     parameters {
         string(name: 'DOMAIN', defaultValue: 'multi-wars', description: 'Which domain?')
         string(name: 'BRANCH', defaultValue: 'develop', description: 'Which branch?')
@@ -14,6 +7,12 @@ pipeline {
 
     stages {
         stage('test') {
+            agent {
+                docker {
+                    image 'jenkins-slave'
+                    args '-v $HOME/.m2:/root/.m2'
+                }
+            }
             steps {
                 sh "ls"
                 sh "git clone https://github.com/Imasug/multi-wars.git"
