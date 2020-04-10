@@ -4,7 +4,10 @@ pipeline {
         stage('Master') {
             agent any
             steps {
-                dir('repo') {
+                dir('test') {
+                    sh 'pwd'
+                }
+                dir('../test') {
                     sh 'pwd'
                 }
             }
