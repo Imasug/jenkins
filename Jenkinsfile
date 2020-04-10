@@ -5,7 +5,6 @@ pipeline {
             agent any
             steps {
                 dir("$HOME/.m2/test") {
-                    sh 'pwd'
                 }
             }
         }
