@@ -4,7 +4,7 @@ def image = 'multi-wars';
 def buildDir = '.';
 def dockerfileDir = '.';
 
-def dockerRepo = 'http://10.212.147.173:8081/repository/ocp4-docker-repos/'
+def dockerRepo = 'http://10.212.147.173:8083'
 def dockerCredential = 'ocp4-docker-repos'
 
 pipeline {
