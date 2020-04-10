@@ -7,3 +7,8 @@ RUN curl -fsSOL https://download.docker.com/linux/static/stable/x86_64/docker-${
     INSTALL_PKGS="git maven" && \
     dnf install -y $INSTALL_PKGS && \
     mkdir -p $HOME/.m2
+
+RUN chown -R 1001:0 $HOME && \
+    chmod -R g+rw $HOME
+
+USER 1001
