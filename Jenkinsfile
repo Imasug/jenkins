@@ -4,13 +4,7 @@ pipeline {
         stage('Master') {
             agent any
             steps {
-                script {
-                    if (fileExists('$HOME/.m2')) {
-                        sh 'echo yes'
-                    } else {
-                        sh 'echo no'
-                    }
-                }
+                sh 'if [ -e $HOME/.m2 ]; then echo true; fi'
             }
         }
         stage('Slave') {
