@@ -1,7 +1,8 @@
 FROM centos:8
 
+ENV HOME=/home/jenkins
+
 ENV DOCKER_VERSION=19.03.8 \
-    HOME=/home/jenkins \
     MAVEN_OPTS="-Duser.home=$HOME"
 
 # Install
