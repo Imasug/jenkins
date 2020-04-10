@@ -1,6 +1,8 @@
 def gitRepo = 'https://github.com/Imasug/multi-wars.git'
 def contextDir = 'multi-wars';
 def buildDir = '.';
+def imageTag = 'multi-wars';
+def dockerfileDir = '.';
 
 pipeline {
     agent none
@@ -23,7 +25,7 @@ pipeline {
                 }
                 stage('Docker Build') {
                     steps {
-                        sh "whoami"
+                        sh "docker build -t ${imageTag} /tmp/${contextDir}/${dockerfileDir}"
                     }
                 }
                 stage('Docker Push') {
