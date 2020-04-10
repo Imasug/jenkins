@@ -1,6 +1,8 @@
 def gitRepo = 'https://github.com/Imasug/multi-wars.git'
 def contextDir = 'multi-wars';
 def buildDir = '.';
+def image = 'multi-wars';
+def dockerfileDir = '.';
 
 pipeline {
     agent none
@@ -23,14 +25,12 @@ pipeline {
                 }
                 stage('Docker Build') {
                     steps {
-                        sh 'whoami'
-                        sh 'docker images'
+                        sh "docker build -t ${image} /tmp/${contextDir}/${dockerfileDir}"
                     }
                 }
                 stage('Docker Push') {
                     steps {
                         sh 'whoami'
-                        sh 'docker images'
                     }
                 }
             }
