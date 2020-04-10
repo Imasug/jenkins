@@ -12,11 +12,19 @@ pipeline {
         string(name: 'BRANCH', defaultValue: 'develop', description: 'Which branch?')
     }
     stages {
+        stage('Jenkins Master') {
+            agent any
+            steps {
+                dir('.m2') {
+                    sh 'Create .m2'
+                }
+            }
+        }
         stage('Jenkins Slave') {
             agent {
                 docker {
                     image 'jenkins-slave'
-                    args '-u root -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/.m2:/home/jenkins/.m2'
+                    args '-u root -v /var/run/docker.sock:/var/run/docker.sock -v .m2:/home/jenkins/.m2'
                 }
             }
             stages {
