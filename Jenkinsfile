@@ -23,6 +23,7 @@ pipeline {
                             sh "cd /tmp && git clone -b ${params.BRANCH} --depth 1 ${gitRepo} && cd ${contextDir}/${buildDir} && sh build.sh"
                         }
                         stage('Docker Build') {
+                            sh 'docker images'
                             imageObj = docker.build("${image}", "/tmp/${contextDir}/${dockerfileDir}");
                         }
                         stage('Docker Push') {
