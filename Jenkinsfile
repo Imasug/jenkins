@@ -6,7 +6,11 @@ pipeline {
                 docker { image 'jenkins-slave' }
             }
             steps {
-                sh 'mvn --version'
+                stages {
+                    stage('test') {
+                        sh 'test'
+                    }
+                }
             }
         }
     }
