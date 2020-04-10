@@ -25,7 +25,7 @@ pipeline {
                 }
                 stage('Docker Build') {
                     steps {
-                        sh "docker build -t ${image} /tmp/${contextDir}/${dockerfileDir}"
+                        sh "whoami"
                     }
                 }
                 stage('Docker Push') {
