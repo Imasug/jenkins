@@ -9,13 +9,13 @@ pipeline {
                 }
             }
             stages {
-                stage('test') {
+                stage('test1') {
                     steps {
                         sh 'whoami'
                         sh 'docker images'
                     }
                 }
-                stage('test') {
+                stage('test2') {
                     steps {
                         sh 'whoami'
                         sh 'docker images'
