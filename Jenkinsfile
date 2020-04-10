@@ -35,6 +35,7 @@ pipeline {
                         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: dockerCredential, usernameVariable: 'username', passwordVariable: 'password']]) {
                             sh "docker login -u ${username} -p ${password} ${dockerRepo}"
                         }
+                        sh "docker push ${imageTag}"
                     }
                 }
             }
