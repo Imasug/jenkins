@@ -23,14 +23,15 @@ pipeline {
                 }
             }
             steps {
-                stage('Maven Build') {
-                    sh "cd /tmp && git clone -b ${params.BRANCH} --depth 1 ${gitRepo} && cd ${contextDir}/${buildDir} && sh build.sh"
-                }
-                stage('Docker Build') {
-                    sh "docker build -t ${image} /tmp/${contextDir}/${dockerfileDir}"
-                }
-                stage('Docker Push') {
-                }
+                sh "docker images"
+                // stage('Maven Build') {
+                //     sh "cd /tmp && git clone -b ${params.BRANCH} --depth 1 ${gitRepo} && cd ${contextDir}/${buildDir} && sh build.sh"
+                // }
+                // stage('Docker Build') {
+                //     sh "docker build -t ${image} /tmp/${contextDir}/${dockerfileDir}"
+                // }
+                // stage('Docker Push') {
+                // }
             }
         }
     }
