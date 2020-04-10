@@ -1,4 +1,5 @@
 def gitRepo = 'https://github.com/Imasug/multi-wars.git'
+def contextDir = 'multi-wars';
 def buildDir = '.';
 
 pipeline {
