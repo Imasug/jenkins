@@ -7,7 +7,9 @@ pipeline {
             }
             stages {
                 stage('test') {
-                    sh 'docker images'
+                    step {
+                        sh 'docker images'
+                    }
                 }
             }
         }
