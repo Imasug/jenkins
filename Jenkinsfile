@@ -1,8 +1,6 @@
 def gitRepo = 'https://github.com/Imasug/multi-wars.git'
 def contextDir = 'multi-wars';
 def buildDir = '.';
-def image = 'multi-wars';
-def dockerfileDir = '.';
 
 pipeline {
     agent none
