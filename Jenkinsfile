@@ -6,9 +6,9 @@ pipeline {
             steps {
                 script {
                     if (fileExists('$HOME/.m2')) {
-                        sh '.m2 exists'
+                        sh 'echo yes'
                     } else {
-                        sh '.m2 not exists'
+                        sh 'echo no'
                     }
                 }
             }
