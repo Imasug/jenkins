@@ -17,13 +17,10 @@ pipeline {
     stages {
         stage('Slave') {
             agent {
-                docker {
-                    image 'jenkins-slave'
-                    args '-v /var/run/docker.sock:/var/run/docker.sock -v ${HOME}/.m2:/home/jenkins/.m2 -u root'
-                }
+                docker { image 'jenkins-slave' }
             }
             steps {
-                sh "docker images"
+                sh "echo test"
                 // stage('Maven Build') {
                 //     sh "cd /tmp && git clone -b ${params.BRANCH} --depth 1 ${gitRepo} && cd ${contextDir}/${buildDir} && sh build.sh"
                 // }
