@@ -10,6 +10,9 @@ pipeline {
                         stage('Maven Build') {
                             sh 'cd /tmp && git clone --depth 1 https://github.com/Imasug/multi-wars.git && cd ./multi-wars && sh build.sh'
                         }
+                        stage('Docker Build') {
+                            docker.build('multi-wars', '/tmp/multi-wars')
+                        }
                     }
                 }
             }
