@@ -11,6 +11,6 @@ RUN curl -fsSOL https://download.docker.com/linux/static/stable/x86_64/docker-${
     INSTALL_PKGS="git maven" && \
     dnf install -y $INSTALL_PKGS && \
     mkdir -p $HOME/.m2 && \
-    chmod 766 -R $HOME
+    chmod 777 -R $HOME
 
 CMD chmod 666 /var/run/docker.sock
