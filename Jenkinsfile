@@ -6,7 +6,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    docker.image('jenkins-slave').inside('-v /var/run/docker.sock:/var/run/docker.sock') {
+                    docker.image('jenkins-slave').inside('-v /var/run/docker.sock:/var/run/docker.sock -u 1001') {
                         stage('Maven Build') {
                             sh 'ls -A $HOME/.m2'
                             sh 'id'
