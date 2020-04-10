@@ -1,5 +1,8 @@
 pipeline {
     agent none
+    parameters {
+        string(name: 'BRANCH', defaultValue: 'develop', description: 'Which branch?')
+    }
     stages {
         stage('Jenkins Slave') {
             agent {
