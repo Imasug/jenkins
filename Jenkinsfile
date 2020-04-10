@@ -14,9 +14,13 @@ pipeline {
     stages {
         stage('Jenkins Master') {
             agent any
-            steps {
-                dir('repo') {
-                    sh 'pwd'
+            stages {
+                stage('Init') {
+                    steps {
+                        dir('repo') {
+                            sh 'pwd'
+                        }
+                    }
                 }
             }
         }
