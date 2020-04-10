@@ -4,7 +4,7 @@ pipeline {
         stage('Master') {
             agent any
             steps {
-                dir('../../.m2') {
+                dir("${HOME}/.m2") {
                     sh 'pwd'
                 }
             }
