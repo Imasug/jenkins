@@ -16,7 +16,7 @@ pipeline {
             agent any
             steps {
                 dir('.m2') {
-                    sh 'Create .m2'
+                    sh 'pwd'
                 }
             }
         }
