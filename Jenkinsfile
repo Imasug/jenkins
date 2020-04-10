@@ -33,7 +33,7 @@ pipeline {
                 stage('Docker Push') {
                     steps {
                         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: dockerCredential, usernameVariable: 'username', passwordVariable: 'password']]) {
-                            sh 'echo uname=$USERNAME pwd=$PASSWORD'
+                            sh 'echo uname=$username pwd=$password'
                         }
                     }
                 }
