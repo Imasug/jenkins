@@ -3,7 +3,10 @@ pipeline {
     stages {
         stage('Slave') {
             agent {
-                docker { image 'jenkins-slave' }
+                docker {
+                    image 'jenkins-slave'
+                    args '-u root'
+                }
             }
             stages {
                 stage('test') {
