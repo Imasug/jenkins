@@ -1,14 +1,20 @@
 pipeline {
     agent none
     stages {
-        stage('Back-end') {
+        stage('Slave') {
             agent {
                 docker { image 'jenkins-slave' }
             }
             stages {
-                stage('test') {
+                stage('Maven') {
                     steps {
-                        sh 'echo test'
+                        sh 'id'
+                        sh 'mvn --version'
+                    }
+                }
+                stage('Docker') {
+                    steps {
+                        sh 'docker --version'
                     }
                 }
             }
