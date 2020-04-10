@@ -1,4 +1,5 @@
 def gitRepo = 'https://github.com/Imasug/multi-wars.git'
+def buildDir = '.';
 
 pipeline {
     agent none
@@ -16,7 +17,7 @@ pipeline {
             stages {
                 stage('Maven Build') {
                     steps {
-                        sh "cd /tmp && git clone -b ${params.BRANCH} --depth 1 ${gitRepo}"
+                        sh "cd /tmp && git clone -b ${params.BRANCH} --depth 1 ${gitRepo} && cd ${contextDir}/${buildDir} && sh build.sh"
                     }
                 }
                 stage('Docker Build') {
