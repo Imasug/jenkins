@@ -15,6 +15,12 @@ pipeline {
                         sh 'docker images'
                     }
                 }
+                stage('test') {
+                    steps {
+                        sh 'whoami'
+                        sh 'docker images'
+                    }
+                }
             }
         }
     }
