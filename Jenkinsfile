@@ -27,13 +27,13 @@ pipeline {
                 }
                 stage('Docker Build') {
                     steps {
-                        sh "docker build -t ${dockerRepo}/${imageTag} /tmp/${contextDir}/${dockerfileDir}"
+                        sh "docker build -t ${imageTag} /tmp/${contextDir}/${dockerfileDir}"
                     }
                 }
                 stage('Docker Push') {
                     steps {
                         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: dockerCredential, usernameVariable: 'username', passwordVariable: 'password']]) {
-                            sh "docker login -u ${username} -p ${password} ${dockerRepo} && docker push ${dockerRepo}/${imageTag}"
+                            sh "docker login -u ${username} -p ${password} ${dockerRepo} && docker push ${imageTag}"
                         }
                     }
                 }
