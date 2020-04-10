@@ -12,5 +12,3 @@ RUN curl -fsSOL https://download.docker.com/linux/static/stable/x86_64/docker-${
     dnf install -y $INSTALL_PKGS && \
     mkdir -p $HOME/.m2 && \
     chmod 777 -R $HOME
-
-# ENTRYPOINT chmod 666 /var/run/docker.sock
