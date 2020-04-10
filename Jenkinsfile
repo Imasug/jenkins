@@ -5,9 +5,9 @@ pipeline {
             agent {
                 docker { image 'jenkins-slave' }
             }
-            steps {
-                stages {
-                    stage('test') {
+            stages {
+                stage('test') {
+                    steps {
                         sh 'test'
                     }
                 }
