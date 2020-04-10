@@ -16,22 +16,20 @@ pipeline {
     }
     stages {
         stage('Slave') {
+            agent {
+                docker {
+                    image 'jenkins-slave'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -v ${HOME}/.m2:/home/jenkins/.m2 -u root'
+                }
+            }
             steps {
-                script {
-                    docker.image('jenkins-slave').inside('-v /var/run/docker.sock:/var/run/docker.sock -v ${HOME}/.m2:/home/jenkins/.m2') {
-                        stage('Maven Build') {
-                            sh "cd /tmp && git clone -b ${params.BRANCH} --depth 1 ${gitRepo} && cd ${contextDir}/${buildDir} && sh build.sh"
-                        }
-                        stage('Docker Build') {
-                            sh 'docker images'
-                            imageObj = docker.build("${image}", "/tmp/${contextDir}/${dockerfileDir}");
-                        }
-                        stage('Docker Push') {
-                            docker.withRegistry(dockerRepo, dockerCredential) {
-                                imageObj.push()
-                            }
-                        }
-                    }
+                stage('Maven Build') {
+                    sh "cd /tmp && git clone -b ${params.BRANCH} --depth 1 ${gitRepo} && cd ${contextDir}/${buildDir} && sh build.sh"
+                }
+                stage('Docker Build') {
+                    sh "docker build -t ${image} /tmp/${contextDir}/${dockerfileDir}"
+                }
+                stage('Docker Push') {
                 }
             }
         }
