@@ -1,7 +1,7 @@
 pipeline {
     agent none
     stages {
-        stage('Slave') {
+        stage('slave') {
             agent {
                 docker {
                     image 'jenkins-slave'
