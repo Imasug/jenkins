@@ -8,9 +8,9 @@ pipeline {
                 script {
                     docker.image('jenkins-slave').inside('-v /var/run/docker.sock:/var/run/docker.sock') {
                         stage('Maven Build') {
-                            sh 'ls -l ~/.m2'
+                            sh 'ls -A ~'
                             sh 'cd /tmp && git clone --depth 1 https://github.com/Imasug/multi-wars.git && cd ./multi-wars && sh build.sh'
-                            sh 'ls -l ~/.m2'
+                            sh 'ls -A ~'
                         }
                         // stage('Docker Build') {
                         //     docker.build('multi-wars', '/tmp/multi-wars')
