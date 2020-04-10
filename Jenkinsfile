@@ -22,7 +22,7 @@ pipeline {
                         }
                         stage('Docker Build') {
                             docker.withRegistry(dockerRepo, dockerCredential) {
-                                docker.build("${image}", "/tmp/${contextDir}/${dockerfileDir}");
+                                docker.build("${image}", "/tmp/${contextDir}/${dockerfileDir}").push()
                             }
                         }
                     }
