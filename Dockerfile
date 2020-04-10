@@ -13,4 +13,4 @@ RUN curl -fsSOL https://download.docker.com/linux/static/stable/x86_64/docker-${
     mkdir -p $HOME/.m2 && \
     chmod 777 -R $HOME
 
-ENTRYPOINT chmod 666 /var/run/docker.sock
+# ENTRYPOINT chmod 666 /var/run/docker.sock
