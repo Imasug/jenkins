@@ -4,7 +4,7 @@ pipeline {
         stage('Master') {
             agent any
             steps {
-                sh 'if [ -e $HOME/.m2/test ]; then mkdir $HOME/.m2/test; fi'
+                sh 'if [ -e $HOME/.m2/test ]; then sudo -u jenkins mkdir $HOME/.m2/test; fi'
             }
         }
         stage('Slave') {
