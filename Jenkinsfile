@@ -1,12 +1,14 @@
 pipeline {
-
     agent none
-
     stages {
         stage('Master') {
             agent any
             steps {
-                sh 'whoami'
+                script {
+                    if (fileExists('$HOME/.m2')) {
+                        sh '.m2 exists'
+                    }
+                }
             }
         }
         stage('Slave') {
