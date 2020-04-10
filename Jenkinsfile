@@ -3,7 +3,7 @@ def contextDir = 'multi-wars';
 def buildDir = '.';
 def imageTag = 'multi-wars';
 def dockerfileDir = '.';
-def dockerRepo = 'http://10.212.147.173:8083'
+def dockerRepo = '10.212.147.173:8083'
 def dockerCredential = 'ocp4-docker-repos'
 
 pipeline {
@@ -27,15 +27,14 @@ pipeline {
                 }
                 stage('Docker Build') {
                     steps {
-                        sh "docker build -t ${imageTag} /tmp/${contextDir}/${dockerfileDir}"
+                        sh "docker build -t ${dockerRepo}/${imageTag} /tmp/${contextDir}/${dockerfileDir}"
                     }
                 }
                 stage('Docker Push') {
                     steps {
                         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: dockerCredential, usernameVariable: 'username', passwordVariable: 'password']]) {
-                            sh "docker login -u ${username} -p ${password} ${dockerRepo}"
+                            sh "docker login -u ${username} -p ${password} ${dockerRepo} && docker push ${dockerRepo}/${imageTag}"
                         }
-                        sh "docker push ${imageTag}"
                     }
                 }
             }
