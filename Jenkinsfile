@@ -7,6 +7,8 @@ pipeline {
                 script {
                     if (fileExists('$HOME/.m2')) {
                         sh '.m2 exists'
+                    } else {
+                        sh '.m2 not exists'
                     }
                 }
             }
