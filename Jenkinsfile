@@ -3,6 +3,8 @@ def contextDir = 'multi-wars';
 def buildDir = '.';
 def imageTag = 'multi-wars';
 def dockerfileDir = '.';
+def dockerRepo = 'http://10.212.147.173:8083'
+def dockerCredential = 'ocp4-docker-repos'
 
 pipeline {
     agent none
@@ -30,7 +32,9 @@ pipeline {
                 }
                 stage('Docker Push') {
                     steps {
-                        sh 'whoami'
+                        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerCredential', usernameVariable: 'username', passwordVariable: 'password']]) {
+                            sh 'echo uname=$USERNAME pwd=$PASSWORD'
+                        }
                     }
                 }
             }
