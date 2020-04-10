@@ -1,8 +1,11 @@
-def repo = 'https://github.com/Imasug/multi-wars.git'
+def gitRepo = 'https://github.com/Imasug/multi-wars.git'
 def contextDir = 'multi-wars';
 def image = 'multi-wars';
 def buildDir = '.';
 def dockerfileDir = '.';
+
+def dockerRepo = 'http://10.212.147.173:8081/repository/ocp4-docker-repos/'
+def dockerCredential = 'ocp4-docker-repos'
 
 pipeline {
     agent none
@@ -15,10 +18,12 @@ pipeline {
                 script {
                     docker.image('jenkins-slave').inside('-v /var/run/docker.sock:/var/run/docker.sock -v ${HOME}/.m2:/home/jenkins/.m2') {
                         stage('Maven Build') {
-                            sh "cd /tmp && git clone -b ${params.BRANCH} --depth 1 ${repo} && cd ${contextDir}/${buildDir} && sh build.sh"
+                            sh "cd /tmp && git clone -b ${params.BRANCH} --depth 1 ${gitRepo} && cd ${contextDir}/${buildDir} && sh build.sh"
                         }
                         stage('Docker Build') {
-                            docker.build("${image}", "/tmp/${contextDir}/${dockerfileDir}")
+                            docker.withRegistry(dockerRepo, dockerCredential) {
+                                docker.build("${image}", "/tmp/${contextDir}/${dockerfileDir}").push()
+                            }
                         }
                     }
                 }
