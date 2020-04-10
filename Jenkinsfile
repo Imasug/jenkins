@@ -7,6 +7,8 @@ def dockerfileDir = '.';
 def dockerRepo = 'http://10.212.147.173:8083'
 def dockerCredential = 'ocp4-docker-repos'
 
+def image = '';
+
 pipeline {
     agent none
     parameters {
