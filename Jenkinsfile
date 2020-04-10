@@ -5,6 +5,7 @@ pipeline {
             agent any
             steps {
                 dir("${HOME}/.m2/repo") {
+                    sh "pwd"
                 }
             }
         }
