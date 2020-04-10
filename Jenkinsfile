@@ -10,6 +10,9 @@ pipeline {
                 dir('../test') {
                     sh 'pwd'
                 }
+                dir('../../test') {
+                    sh 'pwd'
+                }
             }
         }
         stage('Slave') {
