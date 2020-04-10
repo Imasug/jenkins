@@ -5,9 +5,10 @@ pipeline {
             agent {
                 docker { image 'jenkins-slave' }
             }
-            steps {
-                sh 'pwd'
-                sh 'docker images'
+            stages {
+                stage('test') {
+                    sh 'docker images'
+                }
             }
         }
     }
