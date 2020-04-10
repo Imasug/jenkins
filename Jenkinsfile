@@ -7,11 +7,8 @@ pipeline {
             steps {
                 script {
                     docker.image('jenkins-slave').inside {
-                        // stage('Maven Build') {
-                        //     sh 'cd /tmp && git clone --depth 1 https://github.com/Imasug/multi-wars.git && cd ./multi-wars && sh build.sh'
-                        // }
-                        stage('Docker Build') {
-                            sh 'podman images'
+                        stage('Maven Build') {
+                            sh 'cd /tmp && git clone --depth 1 https://github.com/Imasug/multi-wars.git && cd ./multi-wars && sh build.sh'
                         }
                     }
                 }
