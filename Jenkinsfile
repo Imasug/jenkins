@@ -9,6 +9,7 @@ pipeline {
                 stage('Maven') {
                     steps {
                         sh 'id'
+                        sh 'pwd'
                         sh 'mvn --version'
                     }
                 }
