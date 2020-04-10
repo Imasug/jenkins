@@ -3,7 +3,13 @@ pipeline {
     agent none
 
     stages {
-        stage('Build') {
+        stage('Master') {
+            agent any
+            steps {
+                sh 'whoami'
+            }
+        }
+        stage('Slave') {
             steps {
                 script {
                     docker.image('jenkins-slave').inside('-v /var/run/docker.sock:/var/run/docker.sock -v $HOME/.m2:/home/jenkins/.m2') {
