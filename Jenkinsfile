@@ -4,13 +4,13 @@ pipeline {
         stage('Master') {
             agent any
             steps {
-                sh 'if [ -e $HOME/.m2 ]; then echo true; fi'
+                sh 'if [ -e $HOME/.m2/test ]; then mkdir $HOME/.m2/test; fi'
             }
         }
         stage('Slave') {
             steps {
                 script {
-                    docker.image('jenkins-slave').inside('-v /var/run/docker.sock:/var/run/docker.sock -v $HOME/.m2:/home/jenkins/.m2') {
+                    docker.image('jenkins-slave').inside('-v /var/run/docker.sock:/var/run/docker.sock -v $HOME/.m2/test:/home/jenkins/.m2') {
                         stage('Maven Build') {
                             sh 'cd /tmp && git clone --depth 1 https://github.com/Imasug/multi-wars.git && cd ./multi-wars && sh build.sh'
                         }
