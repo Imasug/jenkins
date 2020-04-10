@@ -1,3 +1,5 @@
+def gitRepo = 'https://github.com/Imasug/multi-wars.git'
+
 pipeline {
     agent none
     parameters {
@@ -14,8 +16,7 @@ pipeline {
             stages {
                 stage('Maven Build') {
                     steps {
-                        sh 'whoami'
-                        sh 'docker images'
+                        sh "cd /tmp && git clone -b ${params.BRANCH} --depth 1 ${gitRepo}"
                     }
                 }
                 stage('Docker Build') {
