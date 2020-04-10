@@ -6,13 +6,16 @@ def dockerfileDir = '.';
 
 pipeline {
     agent none
+    parameters {
+        string(name: 'BRANCH', defaultValue: 'develop', description: 'Which branch?')
+    }
     stages {
         stage('Slave') {
             steps {
                 script {
                     docker.image('jenkins-slave').inside('-v /var/run/docker.sock:/var/run/docker.sock -v ${HOME}/.m2:/home/jenkins/.m2') {
                         stage('Maven Build') {
-                            sh "cd /tmp && git clone --depth 1 ${repo} && cd ${contextDir}/${buildDir} && sh build.sh"
+                            sh "cd /tmp && git clone -b ${params.BRANCH} --depth 1 ${repo} && cd ${contextDir}/${buildDir} && sh build.sh"
                         }
                         stage('Docker Build') {
                             docker.build("${image}", "/tmp/${contextDir}/${dockerfileDir}")
