@@ -4,7 +4,9 @@ pipeline {
         stage('Master') {
             agent any
             steps {
-                sh 'if [ ! -e $HOME/.m2/test ]; then mkdir $HOME/.m2/test && chown jenkins:jenkins $HOME/.m2/test && ls -l $HOME/.m2/test; fi'
+                dir('$HOME/.m2/test') {
+                    sh 'ls -l .'
+                }
             }
         }
         stage('Slave') {
