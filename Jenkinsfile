@@ -21,9 +21,9 @@ pipeline {
                             sh "cd /tmp && git clone -b ${params.BRANCH} --depth 1 ${gitRepo} && cd ${contextDir}/${buildDir} && sh build.sh"
                         }
                         stage('Docker Build') {
-                            docker.withRegistry(dockerRepo, dockerCredential) {
-                                docker.build("${image}", "/tmp/${contextDir}/${dockerfileDir}").push()
-                            }
+                            docker.build("${image}", "/tmp/${contextDir}/${dockerfileDir}");
+                            // docker.withRegistry(dockerRepo, dockerCredential) {
+                            // }
                         }
                     }
                 }
