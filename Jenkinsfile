@@ -7,6 +7,8 @@ def dockerfileDir = '.';
 def dockerRepo = 'http://10.212.147.173:8083'
 def dockerCredential = 'ocp4-docker-repos'
 
+def imageObj = '';
+
 pipeline {
     agent none
     parameters {
@@ -21,8 +23,11 @@ pipeline {
                             sh "cd /tmp && git clone -b ${params.BRANCH} --depth 1 ${gitRepo} && cd ${contextDir}/${buildDir} && sh build.sh"
                         }
                         stage('Docker Build') {
+                            imageObj = docker.build("${image}", "/tmp/${contextDir}/${dockerfileDir}");
+                        }
+                        stage('Docker Push') {
                             docker.withRegistry(dockerRepo, dockerCredential) {
-                                docker.build("${image}", "/tmp/${contextDir}/${dockerfileDir}").push()
+                                imageObj.push()
                             }
                         }
                     }

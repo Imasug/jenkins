@@ -1,0 +1,83 @@
+apiVersion: "v1"
+kind: "Template"
+labels: 
+  template: "ocp4-tomcat"
+message: "A new tomcat based application has been created in your project."
+metadata: 
+  annotations: 
+  name: "ocp4-tomcat"
+  creationTimestamp:
+parameters: 
+  - 
+    displayName: "Application Name"
+    description: "The name for the application."
+    name: "APPLICATION_NAME"
+    required: true
+  - 
+    displayName: "Image Name"
+    description: "The image for the application."
+    name: "IMAGE"
+    required: true
+objects: 
+  - 
+    kind: "Service"
+    apiVersion: "v1"
+    spec: 
+      ports: 
+        - 
+          name: "web"
+          port: 8080
+      selector: 
+        deploymentConfig: "${APPLICATION_NAME}"
+    metadata: 
+      name: "${APPLICATION_NAME}"
+      labels: 
+        application: "${APPLICATION_NAME}"
+      annotations: 
+        description: "The web server's http port."
+  - 
+    kind: "Route"
+    apiVersion: "v1"
+    id: "${APPLICATION_NAME}-http"
+    metadata: 
+      name: "${APPLICATION_NAME}"
+      labels: 
+        application: "${APPLICATION_NAME}"
+      annotations: 
+        description: "Route for application's http service."
+    spec: 
+      port:
+        targetPort: 8080
+      to: 
+        name: "${APPLICATION_NAME}"
+  - 
+    kind: "DeploymentConfig"
+    apiVersion: "v1"
+    metadata: 
+      name: "${APPLICATION_NAME}"
+      labels: 
+        application: "${APPLICATION_NAME}"
+    spec: 
+      strategy: 
+        type: "Rolling"
+      replicas: 1
+      selector: 
+        deploymentConfig: "${APPLICATION_NAME}"
+      template: 
+        metadata: 
+          name: "${APPLICATION_NAME}"
+          labels: 
+            deploymentConfig: "${APPLICATION_NAME}"
+            application: "${APPLICATION_NAME}"
+        spec: 
+          imagePullSecrets:
+            - name: "ocp4-docker-repos-secret"
+          containers: 
+            - 
+              name: "${APPLICATION_NAME}"
+              image: "${IMAGE}"
+              ports: 
+                - 
+                  name: "http"
+                  containerPort: 8080
+                  protocol: "TCP"
