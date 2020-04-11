@@ -1,10 +1,10 @@
-def gitRepo = 'https://github.com/Imasug/multi-wars.git'
-def contextDir = 'multi-wars';
-def buildDir = '.';
-def imageTag = 'multi-wars';
-def dockerfileDir = '.';
-def dockerRepo = '10.212.147.173:8083'
-def dockerCredential = 'ocp4-docker-repos'
+def GIT_REPO = 'https://github.com/Imasug/multi-wars.git'
+def CONTEXT_DIR = 'multi-wars';
+def BUILD_SCRIPT_DIR = '.';
+def IMAGE_TAG = 'multi-wars';
+def DOCKERFILE_DIR = '.';
+def DOCKER_REPO = '10.212.147.173:8083'
+def DOCKER_REPO_CRED = 'ocp4-docker-repos'
 
 pipeline {
     agent none
@@ -34,18 +34,18 @@ pipeline {
             stages {
                 stage('Maven Build') {
                     steps {
-                        sh "cd /tmp && git clone -b ${params.BRANCH} --depth 1 ${gitRepo} && cd ${contextDir}/${buildDir} && sh build.sh"
+                        sh "cd /tmp && git clone -b ${params.BRANCH} --depth 1 ${GIT_REPO} && cd ${CONTEXT_DIR}/${BUILD_SCRIPT_DIR} && sh build.sh"
                     }
                 }
                 stage('Docker Build') {
                     steps {
-                        sh "docker build -t ${dockerRepo}/${imageTag} /tmp/${contextDir}/${dockerfileDir}"
+                        sh "docker build -t ${DOCKER_REPO}/${IMAGE_TAG} /tmp/${CONTEXT_DIR}/${DOCKERFILE_DIR}"
                     }
                 }
                 stage('Docker Push') {
                     steps {
-                        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: dockerCredential, usernameVariable: 'username', passwordVariable: 'password']]) {
-                            sh "docker login -u ${username} -p ${password} ${dockerRepo} && docker push ${dockerRepo}/${imageTag}"
+                        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: DOCKER_REPO_CRED, usernameVariable: 'username', passwordVariable: 'password']]) {
+                            sh "docker login -u ${username} -p ${password} ${DOCKER_REPO} && docker push ${DOCKER_REPO}/${IMAGE_TAG}"
                         }
                     }
                 }
